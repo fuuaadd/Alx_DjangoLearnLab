@@ -1,14 +1,38 @@
-from django.shortcuts import render
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+from django.views.generic import TemplateView
 
-from django.views.generic.detail import DetailView 
-from .models import Book, Library
+# View for user registration
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'register.html'
+    success_url = reverse_lazy('login')
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+        return response
 
-def list_books(request):
-    books = Book.objects.all()
-    return render(request, 'relationship_app/list_books.html', {'books': books})
+# View for user login
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('list_books')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
-class LibraryDetailView(DetailView):
-    model = Library
-    template_name = 'relationship_app/library_detail.html", "from .models import Library'
-    context_object_name = 'library'
+# View for user logout
+def logout_view(request):
+    logout(request)
+    return render(request, 'logout.html')
