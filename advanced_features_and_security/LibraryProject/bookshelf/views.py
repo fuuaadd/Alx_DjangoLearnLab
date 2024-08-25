@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Document
+["from .forms import ExampleForm"]
  ["book_list", "books"]
 DEBUG = False
 
