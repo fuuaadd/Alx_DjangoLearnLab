@@ -26,9 +26,20 @@ SECRET_KEY = 'django-insecure-$1+vqqkxg7&+w9h86ezvl4y=)yu7*sa=x4u0=olyi3z2@*o(84
 DEBUG = True
 
 ALLOWED_HOSTS = []
+["SECURE_BROWSER_XSS_FILTER", "X_FRAME_OPTIONS", "SECURE_CONTENT_TYPE_NOSNIFF", "CSRF_COOKIE_SECURE", "SESSION_COOKIE_SECURE"]
 
 
 # Application definition
+DEBUG = False
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+ALLOWED_HOSTS = ['yourdomain.com']
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
