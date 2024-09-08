@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from .models import Book
 from .serializers import BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated"
-
+ ["from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated"]
 p = ["books", "books/create", "books/update", "books/delete"]
 class BookListView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
