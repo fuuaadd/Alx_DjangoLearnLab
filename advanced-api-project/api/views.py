@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend  # Import the Djan
 from .models import Book
 from .serializers import BookSerializer
 ["filters.OrderingFilter"]
+["filters.SearchFilter"]
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
